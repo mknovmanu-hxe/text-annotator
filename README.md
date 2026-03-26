@@ -69,7 +69,11 @@ src/
 ### Установка и запуск
 
 ```bash
-cd text-annotation
+git clone https://github.com/mknovmanu-hxe/text-annotator.git
+```
+
+```bash
+cd text-annotator
 ```
 
 ```bash
