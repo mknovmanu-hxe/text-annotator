@@ -1,0 +1,47 @@
+<div class="article-list">
+  <header class="list-header">
+    <h1>Статьи</h1>
+    <button class="btn btn-primary" (click)="createArticle()">
+      + Новая статья
+    </button>
+  </header>
+
+  <div class="articles-container">
+    @if (articles$ | async; as articles) {
+      @if (articles.length === 0) {
+        <div class="empty-state">
+          <p>Нет статей. Создайте первую!</p>
+        </div>
+      } @else {
+        @for (article of articles; track article.id) {
+          <div class="article-card" (click)="viewArticle(article.id)">
+            <div class="card-body">
+              <h3 class="card-title">{{ article.title }}</h3>
+              <p class="card-preview">
+                {{ article.content | slice: 0 : 150
+                }}{{ article.content.length > 150 ? '...' : '' }}
+              </p>
+              <span class="card-date">{{
+                article.updatedAt | date: 'dd.MM.yyyy HH:mm'
+              }}</span>
+            </div>
+            <div class="card-actions">
+              <button
+                class="btn btn-sm btn-secondary"
+                (click)="editArticle(article.id, $event)"
+              >
+                Редактировать
+              </button>
+              <button
+                class="btn btn-sm btn-danger"
+                (click)="deleteArticle(article.id, $event)"
+              >
+                Удалить
+              </button>
+            </div>
+          </div>
+        }
+      }
+    }
+  </div>
+</div>

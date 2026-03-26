@@ -1,0 +1,114 @@
+<div class="viewer" *ngIf="article">
+  <header class="viewer-header">
+    <button class="btn btn-secondary" (click)="goBack()">← Назад</button>
+    <h1>{{ article.title }}</h1>
+    <button class="btn btn-primary" (click)="editArticle()">
+      Редактировать
+    </button>
+  </header>
+
+  <p class="hint">Выделите текст, чтобы добавить аннотацию</p>
+
+  <!-- Панель создания аннотации -->
+  @if (showAnnotationPanel) {
+    <div class="annotation-panel">
+      <div class="panel-header">
+        <strong>Аннотировать:</strong>
+        <span class="selected-preview"
+          >"{{ selectedText | slice: 0 : 60
+          }}{{ selectedText.length > 60 ? '...' : '' }}"</span
+        >
+      </div>
+
+      <div class="color-picker">
+        <span class="color-label">Цвет:</span>
+        @for (c of colors; track c) {
+          <button
+            class="color-swatch"
+            [style.backgroundColor]="c"
+            [class.active]="c === annotationColor"
+            (click)="selectColor(c)"
+          ></button>
+        }
+      </div>
+
+      <textarea
+        class="annotation-input"
+        [(ngModel)]="annotationNote"
+        placeholder="Введите примечание..."
+        rows="3"
+      ></textarea>
+
+      <div class="panel-actions">
+        <button class="btn btn-secondary btn-sm" (click)="cancelAnnotation()">
+          Отмена
+        </button>
+        <button
+          class="btn btn-primary btn-sm"
+          (click)="saveAnnotation()"
+          [disabled]="!annotationNote.trim()"
+        >
+          Сохранить
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- Контент с аннотациями -->
+  <div #contentContainer class="content" (mouseup)="onTextSelected()">
+    @for (seg of segments; track $index) {
+      @if (seg.annotation) {
+        <span
+          class="annotated-text"
+          [style.borderBottom]="'3px solid ' + seg.annotation.color"
+          [style.backgroundColor]="seg.annotation.color + '18'"
+          (mouseenter)="onAnnotationMouseEnter($event, seg.annotation)"
+          (mouseleave)="onAnnotationMouseLeave()"
+          (contextmenu)="
+            $event.preventDefault();
+            removeAnnotation(seg.annotation!.id, $event)
+          "
+          >{{ seg.text }}</span
+        >
+      } @else {
+        <span>{{ seg.text }}</span>
+      }
+    }
+  </div>
+
+  <!-- Список аннотаций -->
+  @if (annotations.length > 0) {
+    <div class="annotations-sidebar">
+      <h3>Аннотации ({{ annotations.length }})</h3>
+      @for (ann of annotations; track ann.id) {
+        <div class="annotation-card">
+          <div class="ann-color-bar" [style.backgroundColor]="ann.color"></div>
+          <div class="ann-body">
+            <p class="ann-excerpt">
+              "{{
+                article.content.slice(ann.startOffset, ann.endOffset)
+                  | slice: 0 : 50
+              }}"
+            </p>
+            <p class="ann-note">{{ ann.note }}</p>
+          </div>
+          <button
+            class="btn-icon"
+            (click)="removeAnnotation(ann.id, $event)"
+            title="Удалить"
+          >
+            ✕
+          </button>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+<app-annotation-tooltip
+  [visible]="tooltipVisible"
+  [note]="tooltipNote"
+  [color]="tooltipColor"
+  [x]="tooltipX"
+  [y]="tooltipY"
+/>

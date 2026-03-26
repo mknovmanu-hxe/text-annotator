@@ -1,0 +1,11 @@
+@if (visible) {
+  <div
+    class="tooltip"
+    [style.left.px]="x"
+    [style.top.px]="y"
+    [style.borderColor]="color"
+  >
+    <div class="tooltip-color-bar" [style.backgroundColor]="color"></div>
+    <p class="tooltip-text">{{ note }}</p>
+  </div>
+}

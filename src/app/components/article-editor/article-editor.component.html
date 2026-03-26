@@ -1,0 +1,39 @@
+<div class="editor">
+  <header class="editor-header">
+    <h1>{{ isEdit ? 'Редактирование' : 'Новая статья' }}</h1>
+  </header>
+
+  <div class="form-group">
+    <label for="title">Заголовок</label>
+    <input
+      id="title"
+      type="text"
+      [(ngModel)]="title"
+      placeholder="Введите заголовок..."
+      class="input"
+      autocomplete="off"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="content">Текст статьи</label>
+    <textarea
+      id="content"
+      [(ngModel)]="content"
+      placeholder="Введите текст статьи..."
+      class="textarea"
+      rows="16"
+    ></textarea>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-secondary" (click)="cancel()">Отмена</button>
+    <button
+      class="btn btn-primary"
+      (click)="save()"
+      [disabled]="!title.trim() || !content.trim()"
+    >
+      {{ isEdit ? 'Сохранить' : 'Создать' }}
+    </button>
+  </div>
+</div>

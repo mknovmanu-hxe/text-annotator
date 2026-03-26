@@ -1,0 +1,204 @@
+.viewer {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.viewer-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+
+  h1 {
+    flex: 1;
+    margin: 0;
+    font-size: 24px;
+    color: #1a1a2e;
+  }
+}
+
+.hint {
+  color: #999;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+// Контент
+.content {
+  background: #fff;
+  border: 1px solid #e8e8ef;
+  border-radius: 10px;
+  padding: 24px 28px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  user-select: text;
+}
+
+.annotated-text {
+  cursor: pointer;
+  padding-bottom: 2px;
+  transition: background-color 0.2s;
+  position: relative;
+
+  &:hover {
+    filter: brightness(0.95);
+  }
+}
+
+// Панель создания аннотации
+.annotation-panel {
+  background: #f8f9ff;
+  border: 1px solid #d4daff;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  animation: slideDown 0.2s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.panel-header {
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #444;
+
+  .selected-preview {
+    color: #4361ee;
+    font-style: italic;
+    margin-left: 4px;
+  }
+}
+
+.color-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.color-label {
+  font-size: 13px;
+  color: #666;
+}
+
+.color-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition:
+    transform 0.15s,
+    border-color 0.15s;
+
+  &:hover {
+    transform: scale(1.15);
+  }
+
+  &.active {
+    border-color: #1a1a2e;
+    transform: scale(1.2);
+  }
+}
+
+.annotation-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #d4daff;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+
+  &:focus {
+    outline: none;
+    border-color: #4361ee;
+  }
+}
+
+.panel-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+// Сайдбар аннотаций
+.annotations-sidebar {
+  margin-top: 32px;
+
+  h3 {
+    font-size: 18px;
+    color: #1a1a2e;
+    margin-bottom: 14px;
+  }
+}
+
+.annotation-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  transition: box-shadow 0.2s;
+
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+}
+
+.ann-color-bar {
+  width: 4px;
+  min-height: 40px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.ann-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.ann-excerpt {
+  margin: 0 0 4px;
+  font-size: 13px;
+  color: #888;
+  font-style: italic;
+}
+
+.ann-note {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #ccc;
+  padding: 4px;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #e63946;
+  }
+}
